@@ -178,7 +178,9 @@ int main(int argc, char** argv) {
 
 			if(nanosleep(&wake_ts, NULL) == -1) perror("Error: nanosleep() returned -1");
 
-			snprintf(buf, (size_t)1024, "I am the client.");
+			clock_gettime(CLOCK_REALTIME, &wake_ts);
+
+			snprintf(buf, (size_t)1024, "I am the client. It is currently %lld.%09lld.", (long long int)wake_ts.tv_sec, (long long int)wake_ts.tv_nsec);
 
 			long long int bytes_sent = sendto(fd, buf, strlen(buf), 0, (struct sockaddr*)&server_address, sizeof(server_address));
 
