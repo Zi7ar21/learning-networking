@@ -168,11 +168,6 @@ int main(int argc, char** argv) {
 
 		bcopy((char*)host_ptr->h_addr, (char*)&server_address.sin_addr, host_ptr->h_length);
 
-		if(bind(fd, (struct sockaddr*)&server_address, sizeof(server_address)) != 0) {
-			perror("Error binding socket");
-			return EXIT_FAILURE;
-		}
-
 		while(true) {
 			struct timespec wake_ts;
 
